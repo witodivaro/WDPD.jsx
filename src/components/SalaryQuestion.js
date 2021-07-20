@@ -12,6 +12,8 @@ import Fade from './Animations/Fade';
 import Sliding from './Animations/Sliding';
 import Button from './Shared/Button';
 
+import {MAX_POSSIBLE_SALARY} from '../consts/limits';
+
 const {width} = Dimensions.get('window');
 
 const SalaryQuestion = ({onConfirm}) => {
@@ -19,7 +21,7 @@ const SalaryQuestion = ({onConfirm}) => {
   const [isWrongSalary, setIsWrongSalary] = useState(false);
 
   const handleConfirmPress = () => {
-    if (salary > 600) {
+    if (salary > MAX_POSSIBLE_SALARY) {
       setIsWrongSalary(true);
       return Vibration.vibrate([0, 200]);
     }
@@ -33,6 +35,27 @@ const SalaryQuestion = ({onConfirm}) => {
 
   return (
     <View style={styles.container}>
+      <View style={styles.fadeTextContainer}>
+        <Fade toValue={1} looped duration={6000} style={styles.textContainer}>
+          <Text style={styles.text}>СКОЛЬКО?</Text>
+        </Fade>
+        <Fade
+          toValue={1}
+          delay={2000}
+          duration={4000}
+          looped
+          style={styles.textContainer}>
+          <Text style={styles.text}>ТЫ</Text>
+        </Fade>
+        <Fade
+          toValue={1}
+          delay={4000}
+          duration={2000}
+          looped
+          style={styles.textContainer}>
+          <Text style={styles.text}>ЗАРАБАТЫВАЕШЬ?</Text>
+        </Fade>
+      </View>
       <Sliding
         initialValue={-width}
         toValue={width}
@@ -75,7 +98,7 @@ const SalaryQuestion = ({onConfirm}) => {
             duration={300}
             fadeOutDelay={2000}
             onAnimationEnd={() => setIsWrongSalary(false)}>
-            <Text style={styles.fadeText}>{`$${salary}?\nаххахах`}</Text>
+            <Text style={styles.fadeText}>{`$${salary}?\nнастоящую!`}</Text>
           </Fade>
         </View>
       ) : null}
@@ -150,5 +173,12 @@ const styles = StyleSheet.create({
     fontSize: 50,
     color: 'white',
     textAlign: 'center',
+  },
+  fadeTextContainer: {
+    position: 'absolute',
+    top: 80,
+    left: 0,
+    right: 0,
+    bottom: 0,
   },
 });

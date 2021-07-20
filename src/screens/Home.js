@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     paddingTop: 100,
   },
   difference: {
-    marginTop: 100,
+    marginTop: 60,
   },
 });
 

@@ -1,16 +1,9 @@
 import React, {useRef, useEffect} from 'react';
 import {Animated, Easing} from 'react-native';
 
-const Sliding = ({
-  initialValue,
-  toValue,
-  delay,
-  children,
-  styles,
-  duration,
-}) => {
+const Sliding = ({initialValue, toValue, delay, children, style, duration}) => {
   const slideAnim = useRef(new Animated.Value(initialValue)).current;
-  const viewStyles = styles || {};
+  const viewStyles = style || {};
 
   useEffect(() => {
     Animated.loop(

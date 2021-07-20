@@ -1,33 +1,40 @@
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Dimensions, Text} from 'react-native';
+import {View, StyleSheet, Dimensions, Text, Share} from 'react-native';
 
 import NumberContainer from './NumberContainer';
+import Button from './Shared/Button';
 
-import {
-  ONE_DAY_IN_MS,
-  ONE_HOUR_IN_MS,
-  ONE_MINUTE_IN_MS,
-  ONE_SECOND_IN_MS,
-} from '../consts/time';
+import {ONE_SECOND_IN_MS} from '../consts/time';
 import {DEFAULT_CONFIG} from '../consts/defaultConfig';
+import {getDateDifference, getPayDay} from '../utils/calculations';
+import {CYAN} from '../consts/colors';
+import {getShareMessage} from '../utils/texts';
 
-const rightNow = new Date();
-const payDay = new Date(rightNow.getFullYear(), rightNow.getMonth() + 1, 8, 12);
-
+const payDay = getPayDay(8);
 const {width} = Dimensions.get('window');
 
 const PaydayTracker = () => {
-  const [now, setNow] = useState(new Date());
+  const [difference, setDifference] = useState(
+    getDateDifference(Date.now(), payDay),
+  );
+
+  const {days, hours, minutes, seconds} = difference;
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setNow(new Date());
+      setDifference(getDateDifference(Date.now(), payDay));
     }, ONE_SECOND_IN_MS);
 
     return () => {
       clearInterval(interval);
     };
   }, []);
+
+  const share = () => {
+    Share.share({
+      message: getShareMessage(difference),
+    });
+  };
 
   return (
     <View style={styles.container}>
@@ -36,27 +43,14 @@ const PaydayTracker = () => {
       </View>
 
       <View style={styles.timeContainer}>
-        <NumberContainer
-          number={Math.floor((payDay - now) / ONE_DAY_IN_MS)}
-          text="days"
-        />
-        <NumberContainer
-          number={Math.floor(((payDay - now) % ONE_DAY_IN_MS) / ONE_HOUR_IN_MS)}
-          text="hours"
-        />
-        <NumberContainer
-          number={Math.floor(
-            ((payDay - now) % ONE_HOUR_IN_MS) / ONE_MINUTE_IN_MS,
-          )}
-          text="minutes"
-        />
-        <NumberContainer
-          number={Math.floor(
-            ((payDay - now) % ONE_MINUTE_IN_MS) / ONE_SECOND_IN_MS,
-          )}
-          text="seconds"
-        />
+        <NumberContainer number={days} text="days" />
+        <NumberContainer number={hours} text="hours" />
+        <NumberContainer number={minutes} text="minutes" />
+        <NumberContainer number={seconds} text="seconds" />
       </View>
+      <Button style={styles.button} onPress={share}>
+        <Text style={styles.buttonText}>рассказать всем</Text>
+      </Button>
     </View>
   );
 };
@@ -77,6 +71,18 @@ const styles = StyleSheet.create({
   headerText: {
     color: 'white',
     fontSize: 30 / (width / DEFAULT_CONFIG.WIDTH),
+  },
+  button: {
+    marginTop: 20,
+    borderWidth: 2,
+    borderColor: CYAN,
+    borderRadius: 5,
+    padding: 10,
+    backgroundColor: 'rgba(109, 213, 237, 0.3)',
+  },
+  buttonText: {
+    color: 'white',
+    fontSize: 20,
   },
 });
 
