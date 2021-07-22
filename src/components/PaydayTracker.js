@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Dimensions, Text, Share} from 'react-native';
+import {PAYDAY_MONTHDAY} from '@env';
 
 import NumberContainer from './NumberContainer';
 import Button from './Shared/Button';
@@ -10,7 +11,7 @@ import {getDateDifference, getPayDay} from '../utils/calculations';
 import {CYAN} from '../consts/colors';
 import {getShareMessage} from '../utils/texts';
 
-const payDay = getPayDay(8);
+const payDay = getPayDay(PAYDAY_MONTHDAY);
 const {width} = Dimensions.get('window');
 
 const PaydayTracker = () => {

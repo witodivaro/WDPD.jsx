@@ -1,8 +1,9 @@
 import React from 'react';
 import {Text, View, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
-import {LIGHT_BLUE} from '../consts/colors';
+import {ROOT_SALARY} from '@env';
 
+import {LIGHT_BLUE} from '../consts/colors';
 import {selectSalary} from '../redux/user/selectors';
 
 const SalaryDifference = ({style}) => {
@@ -11,7 +12,7 @@ const SalaryDifference = ({style}) => {
   return (
     <View style={style}>
       <Text style={styles.text}>Я получу на</Text>
-      <Text style={styles.salary}>{1400 - salary}$</Text>
+      <Text style={styles.salary}>{Number(ROOT_SALARY) - salary}$</Text>
       <Text style={styles.text}>больше</Text>
     </View>
   );
