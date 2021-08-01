@@ -23,6 +23,19 @@ export const getPayDay = monthDay => {
     payDay.setDate(payDay.getDate() - 1);
   }
 
+  if (rightNow.getDate() <= payDay.getDate()) {
+    const possiblePayDay = new Date(payDay);
+    possiblePayDay.setMonth(rightNow.getMonth());
+
+    while (isWeekend(possiblePayDay)) {
+      possiblePayDay.setDate(possiblePayDay.getDate() - 1);
+    }
+
+    if (rightNow <= possiblePayDay) {
+      return possiblePayDay;
+    }
+  }
+
   return payDay;
 };
 
