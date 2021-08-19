@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import {View, StyleSheet, Dimensions, Text, Share} from 'react-native';
+import {PAYDAY_MONTHDAY} from '@env';
 
 import NumberContainer from './NumberContainer';
 import Button from './Shared/Button';
@@ -9,8 +10,10 @@ import {DEFAULT_CONFIG} from '../consts/defaultConfig';
 import {getDateDifference, getPayDay} from '../utils/calculations';
 import {CYAN} from '../consts/colors';
 import {getShareMessage} from '../utils/texts';
+import NotificationService from '../services/NotificationService';
+import {getPayDayNotification} from '../utils/notifications';
 
-const payDay = getPayDay(8);
+const payDay = getPayDay(PAYDAY_MONTHDAY);
 const {width} = Dimensions.get('window');
 
 const PaydayTracker = () => {
@@ -24,6 +27,13 @@ const PaydayTracker = () => {
     const interval = setInterval(() => {
       setDifference(getDateDifference(Date.now(), payDay));
     }, ONE_SECOND_IN_MS);
+
+    const payDayNotificationTime = new Date(payDay);
+    payDayNotificationTime.setHours(10);
+
+    NotificationService.sendLocalNotification(
+      getPayDayNotification(payDayNotificationTime),
+    );
 
     return () => {
       clearInterval(interval);

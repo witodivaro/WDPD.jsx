@@ -8,6 +8,7 @@ const Fade = ({
   duration,
   fadeOutDelay,
   onAnimationEnd,
+  onFadeOut,
   looped,
   toValue,
 }) => {
@@ -40,6 +41,10 @@ const Fade = ({
       ).start();
     } else {
       Animated.timing(fadeAnim, fadeInConfig).start(() => {
+        if (onFadeOut) {
+          return setTimeout(onFadeOut, fadeOutDelay || 200);
+        }
+
         Animated.timing(fadeAnim, fadeOutConfig).start(() => {
           if (onAnimationEnd) {
             onAnimationEnd();
@@ -52,6 +57,7 @@ const Fade = ({
     duration,
     fadeAnim,
     fadeOutDelay,
+    onFadeOut,
     onAnimationEnd,
     looped,
     toValue,

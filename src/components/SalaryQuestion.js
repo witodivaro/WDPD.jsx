@@ -12,20 +12,24 @@ import Fade from './Animations/Fade';
 import Sliding from './Animations/Sliding';
 import Button from './Shared/Button';
 
-import {MAX_POSSIBLE_SALARY} from '../consts/limits';
+import {SALARIES, SALARY_GREETINGS} from '../consts/salaries';
 
 const {width} = Dimensions.get('window');
 
 const SalaryQuestion = ({onConfirm}) => {
   const [salary, setSalary] = useState('');
-  const [isWrongSalary, setIsWrongSalary] = useState(false);
+  const [isSpecialSalary, setIsSpecialSalary] = useState(false);
 
   const handleConfirmPress = () => {
-    if (salary > MAX_POSSIBLE_SALARY) {
-      setIsWrongSalary(true);
+    if (Object.values(SALARIES).includes(Number(salary))) {
+      setIsSpecialSalary(true);
       return Vibration.vibrate([0, 200]);
     }
 
+    onConfirm(salary);
+  };
+
+  const proceedSpecialSalary = () => {
     onConfirm(salary);
   };
 
@@ -91,14 +95,16 @@ const SalaryQuestion = ({onConfirm}) => {
           <Text style={styles.buttonText}>Подтвердить</Text>
         </Button>
       ) : null}
-      {isWrongSalary ? (
+      {isSpecialSalary ? (
         <View style={styles.fadeContainer}>
           <Fade
             style={styles.fade}
             duration={300}
-            fadeOutDelay={2000}
-            onAnimationEnd={() => setIsWrongSalary(false)}>
-            <Text style={styles.fadeText}>{`$${salary}?\nнастоящую!`}</Text>
+            fadeOutDelay={5000}
+            onFadeOut={proceedSpecialSalary}>
+            <Text style={styles.fadeText}>
+              {SALARY_GREETINGS[Number(salary)]}
+            </Text>
           </Fade>
         </View>
       ) : null}
@@ -170,12 +176,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   fadeText: {
-    fontSize: 50,
+    fontSize: 30,
     color: 'white',
     textAlign: 'center',
   },
   fadeTextContainer: {
     position: 'absolute',
+    padding: 20,
     top: 80,
     left: 0,
     right: 0,

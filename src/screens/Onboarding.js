@@ -14,7 +14,7 @@ const Onboarding = () => {
 
   const handleSalaryConfirm = salary => {
     dispatch(setIsFirstLaunch(false));
-    dispatch(setSalary(salary));
+    dispatch(setSalary(Number(salary)));
     navigation.reset({
       routes: [{name: 'home'}],
       index: 0,
