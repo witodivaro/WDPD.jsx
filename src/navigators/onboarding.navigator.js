@@ -1,20 +1,20 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import Home from '../screens/Home/Home';
+import Onboarding from '../screens/Onboarding/Onboarding';
 
 const Stack = createStackNavigator();
 
-const HomeNavigator = () => (
-  <Stack.Navigator initialRouteName="home">
+const OnboardingNavigator = () => (
+  <Stack.Navigator initialRouteName="onboarding">
     <Stack.Screen
       options={{
         headerShown: false,
       }}
-      name="home"
-      component={Home}
+      name="onboarding"
+      component={Onboarding}
     />
   </Stack.Navigator>
 );
 
-export default HomeNavigator;
+export default OnboardingNavigator;

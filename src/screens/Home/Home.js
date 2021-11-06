@@ -3,31 +3,19 @@ import {ImageBackground, StyleSheet, View} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import {useDispatch, useSelector} from 'react-redux';
 
-import PaydayTracker from '../components/PaydayTracker';
-import SalaryDifference from '../components/SalaryDifference';
+import PaydayTracker from '../../components/PaydayTracker';
 
-import {
-  selectSalary,
-  selectShowSalaryDifference,
-} from '../redux/user/selectors';
-import {selectShowPayDayCongratulations} from '../redux/notifications/selectors';
+import {selectShowPayDayCongratulations} from '../../redux/notifications/selectors';
 
-import {
-  getRandomBackgroundPicture,
-  getSpecificBackground,
-} from '../utils/background';
-import {CYAN, LIGHT_BLUE} from '../consts/colors';
-import PaydayCongratulations from '../components/PaydayCongratulations';
-import {setShowPayDayCongratulations} from '../redux/notifications/actions';
+import {getRandomBackgroundPicture} from '../../utils/background';
+import {ADDITIONAL_COLOR, PRIMARY_COLOR} from '../../consts/colors';
+import PaydayCongratulations from '../../components/PaydayCongratulations';
+import {setShowPayDayCongratulations} from '../../redux/notifications/actions';
 
 const randomBackground = getRandomBackgroundPicture();
 
 const Home = () => {
   const dispatch = useDispatch();
-
-  const showSalaryDifference = useSelector(selectShowSalaryDifference);
-  const salary = useSelector(selectSalary);
-  const customBackground = getSpecificBackground(salary);
 
   const showPayDayCongratulations = useSelector(
     selectShowPayDayCongratulations,
@@ -38,10 +26,12 @@ const Home = () => {
   };
 
   return (
-    <LinearGradient colors={[CYAN, LIGHT_BLUE]} style={styles.container}>
+    <LinearGradient
+      colors={[PRIMARY_COLOR, ADDITIONAL_COLOR]}
+      style={styles.container}>
       <View style={styles.backgroundImageContainer}>
         <ImageBackground
-          source={customBackground || randomBackground}
+          source={randomBackground}
           style={styles.backgroundImage}
         />
       </View>
@@ -49,7 +39,6 @@ const Home = () => {
         <View style={styles.wrapper}>
           <PaydayTracker />
         </View>
-        {showSalaryDifference && <SalaryDifference style={styles.difference} />}
       </View>
       {showPayDayCongratulations && (
         <View style={styles.congratulationsWrapper}>

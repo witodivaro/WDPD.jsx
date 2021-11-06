@@ -2,8 +2,8 @@ import {NavigationContainer} from '@react-navigation/native';
 import React from 'react';
 import {SafeAreaView, StyleSheet} from 'react-native';
 import {useSelector} from 'react-redux';
+import AppNavigator from './src/navigators/app.navigator';
 
-import HomeNavigator from './src/navigators/home.navigator';
 import {selectIsFirstLaunch} from './src/redux/user/selectors';
 
 const App = () => {
@@ -12,7 +12,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <SafeAreaView style={styles.container}>
-        <HomeNavigator initialRoute={isFirstLaunch ? 'onboarding' : 'home'} />
+        <AppNavigator initialRoute={isFirstLaunch ? 'onboarding' : 'home'} />
       </SafeAreaView>
     </NavigationContainer>
   );

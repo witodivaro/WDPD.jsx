@@ -1,6 +1,13 @@
+import {useSelector} from 'react-redux';
 import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Dimensions, Text, Share} from 'react-native';
-import {PAYDAY_MONTHDAY} from '@env';
+import {
+  View,
+  StyleSheet,
+  Dimensions,
+  Text,
+  Share,
+  LayoutAnimation,
+} from 'react-native';
 
 import NumberContainer from './NumberContainer';
 import Button from './Shared/Button';
@@ -8,27 +15,38 @@ import Button from './Shared/Button';
 import {ONE_SECOND_IN_MS} from '../consts/time';
 import {DEFAULT_CONFIG} from '../consts/defaultConfig';
 import {getDateDifference, getPayDay} from '../utils/calculations';
-import {CYAN} from '../consts/colors';
+import {
+  ADDITIONAL_COLOR,
+  PRIMARY_COLOR,
+  SECONDARY_COLOR,
+} from '../consts/colors';
 import {getShareMessage} from '../utils/texts';
 import NotificationService from '../services/NotificationService';
 import {getPayDayNotification} from '../utils/notifications';
+import {selectNextPaycheck} from '../redux/user/selectors';
+import {useRef} from 'react';
 
-const payDay = getPayDay(PAYDAY_MONTHDAY);
 const {width} = Dimensions.get('window');
 
 const PaydayTracker = () => {
   const [difference, setDifference] = useState(
-    getDateDifference(Date.now(), payDay),
+    getDateDifference(Date.now(), nextPaycheckDate),
   );
+  const nextPaycheck = useSelector(selectNextPaycheck);
+  const nextPaycheckDate = useRef(getPayDay(nextPaycheck.day)).current;
 
   const {days, hours, minutes, seconds} = difference;
 
   useEffect(() => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
+  }, []);
+
+  useEffect(() => {
     const interval = setInterval(() => {
-      setDifference(getDateDifference(Date.now(), payDay));
+      setDifference(getDateDifference(Date.now(), nextPaycheckDate));
     }, ONE_SECOND_IN_MS);
 
-    const payDayNotificationTime = new Date(payDay);
+    const payDayNotificationTime = new Date(nextPaycheckDate);
     payDayNotificationTime.setHours(10);
 
     NotificationService.sendLocalNotification(
@@ -38,7 +56,7 @@ const PaydayTracker = () => {
     return () => {
       clearInterval(interval);
     };
-  }, []);
+  }, [nextPaycheckDate]);
 
   const share = () => {
     Share.share({
@@ -46,10 +64,16 @@ const PaydayTracker = () => {
     });
   };
 
+  if (!difference.seconds) {
+    return null;
+  }
+
   return (
     <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.headerText}>до зарплаты:</Text>
+        <Text style={styles.headerText}>
+          до {nextPaycheck.isAdvance ? 'аванса' : 'зарплаты'}:
+        </Text>
       </View>
 
       <View style={styles.timeContainer}>
@@ -79,19 +103,19 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    color: 'white',
+    color: SECONDARY_COLOR,
     fontSize: 30 / (width / DEFAULT_CONFIG.WIDTH),
   },
   button: {
     marginTop: 20,
     borderWidth: 2,
-    borderColor: CYAN,
+    borderColor: PRIMARY_COLOR,
     borderRadius: 5,
     padding: 10,
-    backgroundColor: 'rgba(109, 213, 237, 0.3)',
+    backgroundColor: ADDITIONAL_COLOR,
   },
   buttonText: {
-    color: 'white',
+    color: SECONDARY_COLOR,
     fontSize: 20,
   },
 });

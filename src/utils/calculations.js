@@ -9,15 +9,14 @@ const isWeekend = date => {
   return [0, 6].includes(new Date(date).getDay());
 };
 
-export const getPayDay = monthDay => {
+export const getPayDay = nextPayday => {
   const rightNow = new Date();
 
-  const payDay = new Date(
-    rightNow.getFullYear(),
-    rightNow.getMonth() + 1,
-    monthDay,
-    12,
-  );
+  const payDay = new Date(nextPayday);
+
+  while (new Date(payDay).getTime() < rightNow.getTime()) {
+    payDay.setMonth(payDay.getMonth() + 1);
+  }
 
   while (isWeekend(payDay)) {
     payDay.setDate(payDay.getDate() - 1);
@@ -25,7 +24,6 @@ export const getPayDay = monthDay => {
 
   if (rightNow.getDate() <= payDay.getDate()) {
     const possiblePayDay = new Date(payDay);
-    possiblePayDay.setMonth(rightNow.getMonth());
 
     while (isWeekend(possiblePayDay)) {
       possiblePayDay.setDate(possiblePayDay.getDate() - 1);
@@ -35,6 +33,8 @@ export const getPayDay = monthDay => {
       return possiblePayDay;
     }
   }
+
+  payDay.setHours(12);
 
   return payDay;
 };
