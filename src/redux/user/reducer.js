@@ -15,9 +15,11 @@ export const userReducer = (state = initialState, {type, payload}) => {
       };
 
     case SET_PAYDAY: {
+      const payDay = new Date(payload.payDay);
+      payDay.setHours(12, 0, 0, 0);
       return {
         ...state,
-        payday: payload.payDay,
+        payday: payDay,
       };
     }
 

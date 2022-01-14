@@ -10,19 +10,18 @@ import {
 } from 'react-native';
 import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
-import {getDifferenceDisplayText, getPayDay} from '../utils/calculations';
+import {getDifferenceDisplayText} from '../utils/calculations';
 import {ADDITIONAL_COLOR, SECONDARY_COLOR} from '../consts/colors';
 import {getShareMessage} from '../utils/texts';
-import {selectNextPaycheck} from '../redux/user/selectors';
-import {useRef} from 'react';
+import {
+  selectNextPaycheck,
+  selectPayDayDifference,
+} from '../redux/user/selectors';
 import {scaling} from '../utils/scaling';
-import {ONE_DAY_IN_MS} from '../consts/time';
 
 const PaydayTracker = () => {
   const nextPaycheck = useSelector(selectNextPaycheck);
-
-  const nextPaycheckDate = useRef(getPayDay(nextPaycheck.day)).current;
-  console.log(nextPaycheckDate);
+  const totalSecondsDifference = useSelector(selectPayDayDifference);
 
   useEffect(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -31,8 +30,6 @@ const PaydayTracker = () => {
   const secondsTilPayday = Math.floor(
     (nextPaycheck.getTime() - Date.now()) / 1000,
   );
-
-  const totalSecondsDifference = Math.floor((ONE_DAY_IN_MS / 1000) * 30);
 
   const share = () => {
     Share.share({

@@ -20,6 +20,7 @@ const getStatus = seconds => {
       if (time === 1) {
         return 'ОН УЖЕ БЛИЗКО!';
       }
+      break;
     case 'hours':
       return 'Накрывайте на стол!';
     case 'minutes':
