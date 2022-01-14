@@ -1,32 +1,43 @@
-const getStatus = daysLeft => {
-  switch (true) {
-    case daysLeft > 10:
-      return 'Ну круто, круто.';
-    case daysLeft > 5:
-      return 'good';
-    default:
-      return 'Найс)';
+import {getDifferenceDisplayText} from './calculations';
+
+const getStatus = seconds => {
+  const {title, time} = getDifferenceDisplayText(seconds);
+
+  switch (title) {
+    case 'days':
+      if (time > 25) {
+        return 'С почином!';
+      }
+
+      if (time >= 10) {
+        return 'Держитесь..';
+      }
+
+      if (time > 5) {
+        return 'Лут подъезжает!';
+      }
+
+      if (time === 1) {
+        return 'ОН УЖЕ БЛИЗКО!';
+      }
+      break;
+    case 'hours':
+      return 'Накрывайте на стол!';
+    case 'minutes':
+      return 'Берите кредит!';
+    case 'seconds':
+      return 'я в шоке!';
   }
 };
 
-export const getShareMessage = dateDifference => {
-  const {days, hours} = dateDifference;
+export const getShareMessage = seconds => {
+  const {title, time} = getDifferenceDisplayText(seconds);
 
-  const status = getStatus(days);
+  const status = getStatus(seconds);
 
   let message = `${status}\n`;
 
-  if (days) {
-    message += `До зарплаты осталось ${days} дней`;
-
-    if (hours) {
-      message += ` и ${hours} часов.`;
-    } else {
-      message += '.';
-    }
-  } else {
-    message += `ДО ЗП ${hours} часов!!`;
-  }
+  message += `До следующей зарплаты осталось ${time} ${title}`;
 
   return message;
 };

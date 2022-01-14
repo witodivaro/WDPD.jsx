@@ -1,66 +1,69 @@
-import React, {useState, useEffect} from 'react';
-import {View, StyleSheet, Dimensions, Text, Share} from 'react-native';
-import {PAYDAY_MONTHDAY} from '@env';
+import {useSelector} from 'react-redux';
+import React, {useEffect} from 'react';
+import {
+  StyleSheet,
+  Share,
+  LayoutAnimation,
+  Text,
+  View,
+  Button,
+} from 'react-native';
+import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
-import NumberContainer from './NumberContainer';
-import Button from './Shared/Button';
-
-import {ONE_SECOND_IN_MS} from '../consts/time';
-import {DEFAULT_CONFIG} from '../consts/defaultConfig';
-import {getDateDifference, getPayDay} from '../utils/calculations';
-import {CYAN} from '../consts/colors';
+import {getDifferenceDisplayText} from '../utils/calculations';
+import {ADDITIONAL_COLOR, SECONDARY_COLOR} from '../consts/colors';
 import {getShareMessage} from '../utils/texts';
-import NotificationService from '../services/NotificationService';
-import {getPayDayNotification} from '../utils/notifications';
-
-const payDay = getPayDay(PAYDAY_MONTHDAY);
-const {width} = Dimensions.get('window');
+import {
+  selectNextPaycheck,
+  selectPayDayDifference,
+} from '../redux/user/selectors';
+import {scaling} from '../utils/scaling';
 
 const PaydayTracker = () => {
-  const [difference, setDifference] = useState(
-    getDateDifference(Date.now(), payDay),
-  );
-
-  const {days, hours, minutes, seconds} = difference;
+  const nextPaycheck = useSelector(selectNextPaycheck);
+  const totalSecondsDifference = useSelector(selectPayDayDifference);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setDifference(getDateDifference(Date.now(), payDay));
-    }, ONE_SECOND_IN_MS);
-
-    const payDayNotificationTime = new Date(payDay);
-    payDayNotificationTime.setHours(10);
-
-    NotificationService.sendLocalNotification(
-      getPayDayNotification(payDayNotificationTime),
-    );
-
-    return () => {
-      clearInterval(interval);
-    };
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   }, []);
+
+  const secondsTilPayday = Math.floor(
+    (nextPaycheck.getTime() - Date.now()) / 1000,
+  );
 
   const share = () => {
     Share.share({
-      message: getShareMessage(difference),
+      message: getShareMessage(secondsTilPayday),
     });
   };
 
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>до зарплаты:</Text>
-      </View>
+      <CountdownCircleTimer
+        size={scaling.hs(320)}
+        strokeWidth={20}
+        isPlaying
+        duration={totalSecondsDifference}
+        initialRemainingTime={secondsTilPayday}
+        colors={[SECONDARY_COLOR, ADDITIONAL_COLOR]}>
+        {({remainingTime}) => {
+          const difference = getDifferenceDisplayText(remainingTime);
 
-      <View style={styles.timeContainer}>
-        <NumberContainer number={days} text="days" />
-        <NumberContainer number={hours} text="hours" />
-        <NumberContainer number={minutes} text="minutes" />
-        <NumberContainer number={seconds} text="seconds" />
+          if (!difference) {
+            return <Text style={styles.timeTitle}>Congratulations!</Text>;
+          }
+
+          return (
+            <View style={styles.timeContainer}>
+              <Text style={styles.timeText}>{difference.time}</Text>
+              <Text style={styles.timeTitle}>{difference.title}</Text>
+            </View>
+          );
+        }}
+      </CountdownCircleTimer>
+      <View style={styles.buttonContainer}>
+        <Button title="рассказать" onPress={share} color={SECONDARY_COLOR} />
       </View>
-      <Button style={styles.button} onPress={share}>
-        <Text style={styles.buttonText}>рассказать всем</Text>
-      </Button>
     </View>
   );
 };
@@ -70,29 +73,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  timeTitle: {
+    color: SECONDARY_COLOR,
+    fontSize: scaling.hs(30),
+  },
+  timeText: {
+    color: SECONDARY_COLOR,
+    fontSize: scaling.hs(50),
+  },
   timeContainer: {
-    position: 'relative',
-    flexDirection: 'row',
-    zIndex: 50,
+    alignItems: 'center',
   },
-  header: {
-    marginBottom: 20,
-  },
-  headerText: {
-    color: 'white',
-    fontSize: 30 / (width / DEFAULT_CONFIG.WIDTH),
-  },
-  button: {
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: CYAN,
-    borderRadius: 5,
-    padding: 10,
-    backgroundColor: 'rgba(109, 213, 237, 0.3)',
-  },
-  buttonText: {
-    color: 'white',
-    fontSize: 20,
+  buttonContainer: {
+    marginTop: scaling.vs(40),
   },
 });
 

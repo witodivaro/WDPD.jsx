@@ -11,9 +11,9 @@
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		5BE9208128A63B2465D6560B /* libPods-WitoDivaroPD-WitoDivaroPDTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 44B9DD9805ED0F0A49596905 /* libPods-WitoDivaroPD-WitoDivaroPDTests.a */; };
+		659B3ACB181089F6881854F2 /* libPods-WitoDivaroPD-WitoDivaroPDTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 708C57C9CCC9496B7EA5A07D /* libPods-WitoDivaroPD-WitoDivaroPDTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
-		F8575B7F0374289DEF2FF4D0 /* libPods-WitoDivaroPD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = BD5AEEDB5720AEBCF3981E31 /* libPods-WitoDivaroPD.a */; };
+		ED8DFB2578928EDB418C6D24 /* libPods-WitoDivaroPD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DF0E72C9EBFC861E6775979 /* libPods-WitoDivaroPD.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -39,9 +39,9 @@
 		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = WitoDivaroPD/Info.plist; sourceTree = "<group>"; };
 		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = WitoDivaroPD/main.m; sourceTree = "<group>"; };
 		37681CC58D305E7430C8DB27 /* Pods-WitoDivaroPD.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WitoDivaroPD.debug.xcconfig"; path = "Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD.debug.xcconfig"; sourceTree = "<group>"; };
-		44B9DD9805ED0F0A49596905 /* libPods-WitoDivaroPD-WitoDivaroPDTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WitoDivaroPD-WitoDivaroPDTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6DF0E72C9EBFC861E6775979 /* libPods-WitoDivaroPD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WitoDivaroPD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		708C57C9CCC9496B7EA5A07D /* libPods-WitoDivaroPD-WitoDivaroPDTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WitoDivaroPD-WitoDivaroPDTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = WitoDivaroPD/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		BD5AEEDB5720AEBCF3981E31 /* libPods-WitoDivaroPD.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-WitoDivaroPD.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D4B9A01B18B87A1C2DC6B7E9 /* Pods-WitoDivaroPD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-WitoDivaroPD.release.xcconfig"; path = "Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -51,7 +51,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5BE9208128A63B2465D6560B /* libPods-WitoDivaroPD-WitoDivaroPDTests.a in Frameworks */,
+				659B3ACB181089F6881854F2 /* libPods-WitoDivaroPD-WitoDivaroPDTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +59,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F8575B7F0374289DEF2FF4D0 /* libPods-WitoDivaroPD.a in Frameworks */,
+				ED8DFB2578928EDB418C6D24 /* libPods-WitoDivaroPD.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -100,8 +100,8 @@
 			isa = PBXGroup;
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
-				BD5AEEDB5720AEBCF3981E31 /* libPods-WitoDivaroPD.a */,
-				44B9DD9805ED0F0A49596905 /* libPods-WitoDivaroPD-WitoDivaroPDTests.a */,
+				6DF0E72C9EBFC861E6775979 /* libPods-WitoDivaroPD.a */,
+				708C57C9CCC9496B7EA5A07D /* libPods-WitoDivaroPD-WitoDivaroPDTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -114,7 +114,6 @@
 				045B2D9958C8D75058E67E29 /* Pods-WitoDivaroPD-WitoDivaroPDTests.debug.xcconfig */,
 				0524E7A8A6D58145762A2E01 /* Pods-WitoDivaroPD-WitoDivaroPDTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -161,7 +160,7 @@
 				00E356EB1AD99517003FC87E /* Frameworks */,
 				00E356EC1AD99517003FC87E /* Resources */,
 				C8D15C53B54A01E7F3ACCDC6 /* [CP] Embed Pods Frameworks */,
-				34A71B7C9A6A304F012CA303 /* [CP] Copy Pods Resources */,
+				ED0774A89193F4DFE734BAA3 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -184,7 +183,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				DB87484DA1C2D371CBB092D0 /* [CP] Embed Pods Frameworks */,
-				C66D7F8C3D5861B2F3C3FA02 /* [CP] Copy Pods Resources */,
+				672708923DD29012C7BEA1EC /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -265,21 +264,21 @@
 			shellPath = /bin/sh;
 			shellScript = "set -e\n\nexport NODE_BINARY=node\n../node_modules/react-native/scripts/react-native-xcode.sh\n";
 		};
-		34A71B7C9A6A304F012CA303 /* [CP] Copy Pods Resources */ = {
+		672708923DD29012C7BEA1EC /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD-WitoDivaroPDTests/Pods-WitoDivaroPD-WitoDivaroPDTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD-resources-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD-WitoDivaroPDTests/Pods-WitoDivaroPD-WitoDivaroPDTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD-resources-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD-WitoDivaroPDTests/Pods-WitoDivaroPD-WitoDivaroPDTests-resources.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		85C8DDDB894CCBF9379F28C8 /* [CP] Check Pods Manifest.lock */ = {
@@ -302,23 +301,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		C66D7F8C3D5861B2F3C3FA02 /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD-resources-${CONFIGURATION}-input-files.xcfilelist",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputFileListPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD-resources-${CONFIGURATION}-output-files.xcfilelist",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD/Pods-WitoDivaroPD-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		C8D15C53B54A01E7F3ACCDC6 /* [CP] Embed Pods Frameworks */ = {
@@ -375,6 +357,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		ED0774A89193F4DFE734BAA3 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD-WitoDivaroPDTests/Pods-WitoDivaroPD-WitoDivaroPDTests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD-WitoDivaroPDTests/Pods-WitoDivaroPD-WitoDivaroPDTests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-WitoDivaroPD-WitoDivaroPDTests/Pods-WitoDivaroPD-WitoDivaroPDTests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		FD10A7F022414F080027D42C /* Start Packager */ = {
@@ -486,6 +485,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = WitoDivaroPD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -511,6 +511,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
 				CURRENT_PROJECT_VERSION = 1;
+				EXCLUDED_ARCHS = arm64;
 				INFOPLIST_FILE = WitoDivaroPD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -561,7 +562,7 @@
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -626,7 +627,7 @@
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "arm64 ";
+				"EXCLUDED_ARCHS[sdk=iphonesimulator*]" = "";
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
