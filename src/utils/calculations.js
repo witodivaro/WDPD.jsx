@@ -11,7 +11,6 @@ const isWeekend = date => {
 
 export const getPayDay = nextPayday => {
   const rightNow = new Date();
-
   const payDay = new Date(nextPayday);
 
   while (new Date(payDay).getTime() < rightNow.getTime()) {
@@ -24,10 +23,6 @@ export const getPayDay = nextPayday => {
 
   if (rightNow.getDate() <= payDay.getDate()) {
     const possiblePayDay = new Date(payDay);
-<<<<<<< HEAD
-=======
-    possiblePayDay.setMonth(rightNow.getMonth());
->>>>>>> ec1d06a3cbd33dde931d20a4395c98c47c121e11
 
     while (isWeekend(possiblePayDay)) {
       possiblePayDay.setDate(possiblePayDay.getDate() - 1);
@@ -38,11 +33,11 @@ export const getPayDay = nextPayday => {
     }
   }
 
-<<<<<<< HEAD
   payDay.setHours(12);
+  payDay.setMinutes(0);
+  payDay.setSeconds(0);
+  payDay.setMilliseconds(0);
 
-=======
->>>>>>> ec1d06a3cbd33dde931d20a4395c98c47c121e11
   return payDay;
 };
 
@@ -57,4 +52,43 @@ export const getDateDifference = (date1, date2) => {
   };
 
   return difference;
+};
+
+export const getDifferenceDisplayText = secondsRemaining => {
+  const msRemaining = secondsRemaining * 1000;
+
+  const difference = {
+    days: Math.floor(msRemaining / ONE_DAY_IN_MS),
+    hours: Math.floor(msRemaining / ONE_HOUR_IN_MS),
+    minutes: Math.floor(msRemaining / ONE_MINUTE_IN_MS),
+    seconds: Math.floor(msRemaining / ONE_SECOND_IN_MS),
+  };
+
+  if (difference.days) {
+    return {
+      title: 'days',
+      time: difference.days,
+    };
+  }
+
+  if (difference.hours) {
+    return {
+      title: 'hours',
+      time: difference.hours,
+    };
+  }
+
+  if (difference.minutes) {
+    return {
+      title: 'minutes',
+      time: difference.minutes,
+    };
+  }
+
+  if (difference.seconds) {
+    return {
+      title: 'seconds',
+      time: difference.seconds,
+    };
+  }
 };

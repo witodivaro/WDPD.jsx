@@ -11,8 +11,3 @@ export const setPayDay = payDay => ({
   type: SET_PAYDAY,
   payload: {payDay},
 });
-
-export const setAdvance = advanceDay => ({
-  type: SET_ADVANCE,
-  payload: {advanceDay},
-});

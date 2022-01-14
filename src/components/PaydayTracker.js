@@ -1,90 +1,71 @@
 import {useSelector} from 'react-redux';
-import React, {useState, useEffect} from 'react';
+import React, {useEffect} from 'react';
 import {
-  View,
   StyleSheet,
-  Dimensions,
-  Text,
   Share,
   LayoutAnimation,
+  Text,
+  View,
+  Button,
 } from 'react-native';
+import {CountdownCircleTimer} from 'react-native-countdown-circle-timer';
 
-import NumberContainer from './NumberContainer';
-import Button from './Shared/Button';
-
-import {ONE_SECOND_IN_MS} from '../consts/time';
-import {DEFAULT_CONFIG} from '../consts/defaultConfig';
-import {getDateDifference, getPayDay} from '../utils/calculations';
-import {
-  ADDITIONAL_COLOR,
-  PRIMARY_COLOR,
-  SECONDARY_COLOR,
-} from '../consts/colors';
+import {getDifferenceDisplayText, getPayDay} from '../utils/calculations';
+import {ADDITIONAL_COLOR, SECONDARY_COLOR} from '../consts/colors';
 import {getShareMessage} from '../utils/texts';
-import NotificationService from '../services/NotificationService';
-import {getPayDayNotification} from '../utils/notifications';
 import {selectNextPaycheck} from '../redux/user/selectors';
 import {useRef} from 'react';
-
-const {width} = Dimensions.get('window');
+import {scaling} from '../utils/scaling';
+import {ONE_DAY_IN_MS} from '../consts/time';
 
 const PaydayTracker = () => {
-  const [difference, setDifference] = useState(
-    getDateDifference(Date.now(), nextPaycheckDate),
-  );
   const nextPaycheck = useSelector(selectNextPaycheck);
-  const nextPaycheckDate = useRef(getPayDay(nextPaycheck.day)).current;
 
-  const {days, hours, minutes, seconds} = difference;
+  const nextPaycheckDate = useRef(getPayDay(nextPaycheck.day)).current;
+  console.log(nextPaycheckDate);
 
   useEffect(() => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setDifference(getDateDifference(Date.now(), nextPaycheckDate));
-    }, ONE_SECOND_IN_MS);
+  const secondsTilPayday = Math.floor(
+    (nextPaycheck.getTime() - Date.now()) / 1000,
+  );
 
-    const payDayNotificationTime = new Date(nextPaycheckDate);
-    payDayNotificationTime.setHours(10);
-
-    NotificationService.sendLocalNotification(
-      getPayDayNotification(payDayNotificationTime),
-    );
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, [nextPaycheckDate]);
+  const totalSecondsDifference = Math.floor((ONE_DAY_IN_MS / 1000) * 30);
 
   const share = () => {
     Share.share({
-      message: getShareMessage(difference),
+      message: getShareMessage(secondsTilPayday),
     });
   };
 
-  if (!difference.seconds) {
-    return null;
-  }
-
   return (
     <View style={styles.container}>
-      <View style={styles.header}>
-        <Text style={styles.headerText}>
-          до {nextPaycheck.isAdvance ? 'аванса' : 'зарплаты'}:
-        </Text>
-      </View>
+      <CountdownCircleTimer
+        size={scaling.hs(320)}
+        isPlaying
+        duration={totalSecondsDifference}
+        initialRemainingTime={secondsTilPayday}
+        colors={[SECONDARY_COLOR, ADDITIONAL_COLOR]}>
+        {({remainingTime}) => {
+          const difference = getDifferenceDisplayText(remainingTime);
 
-      <View style={styles.timeContainer}>
-        <NumberContainer number={days} text="days" />
-        <NumberContainer number={hours} text="hours" />
-        <NumberContainer number={minutes} text="minutes" />
-        <NumberContainer number={seconds} text="seconds" />
+          if (!difference) {
+            return <Text style={styles.timeTitle}>Congratulations!</Text>;
+          }
+
+          return (
+            <View style={styles.timeContainer}>
+              <Text style={styles.timeText}>{difference.time}</Text>
+              <Text style={styles.timeTitle}>{difference.title}</Text>
+            </View>
+          );
+        }}
+      </CountdownCircleTimer>
+      <View style={styles.buttonContainer}>
+        <Button title="рассказать" onPress={share} color={SECONDARY_COLOR} />
       </View>
-      <Button style={styles.button} onPress={share}>
-        <Text style={styles.buttonText}>рассказать всем</Text>
-      </Button>
     </View>
   );
 };
@@ -94,29 +75,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  timeTitle: {
+    color: SECONDARY_COLOR,
+    fontSize: scaling.hs(30),
+  },
+  timeText: {
+    color: SECONDARY_COLOR,
+    fontSize: scaling.hs(50),
+  },
   timeContainer: {
-    position: 'relative',
-    flexDirection: 'row',
-    zIndex: 50,
+    alignItems: 'center',
   },
-  header: {
-    marginBottom: 20,
-  },
-  headerText: {
-    color: SECONDARY_COLOR,
-    fontSize: 30 / (width / DEFAULT_CONFIG.WIDTH),
-  },
-  button: {
-    marginTop: 20,
-    borderWidth: 2,
-    borderColor: PRIMARY_COLOR,
-    borderRadius: 5,
-    padding: 10,
-    backgroundColor: ADDITIONAL_COLOR,
-  },
-  buttonText: {
-    color: SECONDARY_COLOR,
-    fontSize: 20,
+  buttonContainer: {
+    marginTop: scaling.vs(20),
   },
 });
 

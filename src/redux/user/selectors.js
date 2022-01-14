@@ -1,6 +1,7 @@
 import {createSelector} from 'reselect';
 
 import {SALARIES} from '../../consts/salaries';
+import {getPayDay} from '../../utils/calculations';
 
 const selectUserState = state => state.user;
 
@@ -9,7 +10,7 @@ export const selectIsFirstLaunch = createSelector(
   state => state.isFirstLaunch,
 );
 
-export const selectPayDay = createSelector(
+export const selectFirstPayDay = createSelector(
   selectUserState,
   state => state.payday,
 );
@@ -20,21 +21,15 @@ export const selectAdvanceDay = createSelector(
 );
 
 export const selectNextPaycheck = createSelector(
-  [selectPayDay, selectAdvanceDay],
-  (payDay, advanceDay) => {
-    const nextPaycheck = {
-      day: payDay,
-      isAdvance: false,
-    };
-    if (advanceDay && new Date(payDay) < new Date(advanceDay)) {
-      nextPaycheck.day = advanceDay;
-      nextPaycheck.isAdvance = true;
-    }
+  [selectFirstPayDay],
+  firstPayDay => {
+    const nextPayDay = getPayDay(firstPayDay);
 
-    return nextPaycheck;
+    return nextPayDay;
   },
 );
 
-export const selectShowSalaryDifference = createSelector(selectSalary, salary =>
-  Object.values(SALARIES).includes(salary),
+export const selectShowSalaryDifference = createSelector(
+  selectFirstPayDay,
+  salary => Object.values(SALARIES).includes(salary),
 );

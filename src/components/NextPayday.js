@@ -10,14 +10,11 @@ import {
   SECONDARY_COLOR,
 } from '../consts/colors';
 import Button from './Shared/Button';
-import {useSelector} from 'react-redux';
-import {selectAdvanceDay} from '../redux/user/selectors';
 
 const NextPayday = ({onConfirm}) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [payday, setPayday] = useState(new Date());
   const [isTouched, setIsTouched] = useState(false);
-  const advanceDay = useSelector(selectAdvanceDay);
 
   const toggleModal = () => {
     setIsModalOpen(o => !o);
@@ -75,12 +72,8 @@ const NextPayday = ({onConfirm}) => {
         <View style={styles.datePicker}>
           <Text style={styles.text}>Your next pay day is on...</Text>
           <DatePicker
-            minimumDate={new Date(advanceDay || Date.now())}
-            maximumDate={
-              advanceDay
-                ? moment(advanceDay).add(1, 'month').toDate()
-                : moment().add(2, 'month').toDate()
-            }
+            minimumDate={new Date()}
+            maximumDate={moment().add(2, 'month').toDate()}
             date={payday}
             mode="date"
             onDateChange={handleDateChange}
