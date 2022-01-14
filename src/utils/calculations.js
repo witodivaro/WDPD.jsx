@@ -24,6 +24,10 @@ export const getPayDay = nextPayday => {
 
   if (rightNow.getDate() <= payDay.getDate()) {
     const possiblePayDay = new Date(payDay);
+<<<<<<< HEAD
+=======
+    possiblePayDay.setMonth(rightNow.getMonth());
+>>>>>>> ec1d06a3cbd33dde931d20a4395c98c47c121e11
 
     while (isWeekend(possiblePayDay)) {
       possiblePayDay.setDate(possiblePayDay.getDate() - 1);
@@ -34,8 +38,11 @@ export const getPayDay = nextPayday => {
     }
   }
 
+<<<<<<< HEAD
   payDay.setHours(12);
 
+=======
+>>>>>>> ec1d06a3cbd33dde931d20a4395c98c47c121e11
   return payDay;
 };
 

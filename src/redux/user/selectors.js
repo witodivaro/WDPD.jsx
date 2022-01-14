@@ -1,5 +1,7 @@
 import {createSelector} from 'reselect';
 
+import {SALARIES} from '../../consts/salaries';
+
 const selectUserState = state => state.user;
 
 export const selectIsFirstLaunch = createSelector(
@@ -31,4 +33,8 @@ export const selectNextPaycheck = createSelector(
 
     return nextPaycheck;
   },
+);
+
+export const selectShowSalaryDifference = createSelector(selectSalary, salary =>
+  Object.values(SALARIES).includes(salary),
 );
