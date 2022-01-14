@@ -41,6 +41,7 @@ const PaydayTracker = () => {
     <View style={styles.container}>
       <CountdownCircleTimer
         size={scaling.hs(320)}
+        strokeWidth={20}
         isPlaying
         duration={totalSecondsDifference}
         initialRemainingTime={secondsTilPayday}
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   buttonContainer: {
-    marginTop: scaling.vs(20),
+    marginTop: scaling.vs(40),
   },
 });
 

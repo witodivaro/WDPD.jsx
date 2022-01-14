@@ -7,7 +7,7 @@ import {useDispatch} from 'react-redux';
 import NextPayday from '../../components/NextPayday';
 
 import {ADDITIONAL_COLOR, PRIMARY_COLOR} from '../../consts/colors';
-import {setPayDay} from '../../redux/user/actions';
+import {setIsFirstLaunch, setPayDay} from '../../redux/user/actions';
 
 const Onboarding = () => {
   const navigation = useNavigation();
@@ -15,6 +15,7 @@ const Onboarding = () => {
 
   const handleNextPaydayConfirm = date => {
     dispatch(setPayDay(date));
+    dispatch(setIsFirstLaunch(false));
 
     navigation.navigate('home');
   };
