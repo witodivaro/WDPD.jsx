@@ -9,6 +9,22 @@ const isWeekend = date => {
   return [0, 6].includes(new Date(date).getDay());
 };
 
+export const getPrevPayDay = (firstPayDay, daysBack = 15) => {
+  const firstPayDayFormatted = new Date(firstPayDay);
+  firstPayDayFormatted.setHours(12, 0, 0, 0);
+
+  const prevPayDay = getPayDay(
+    Date.now() - ONE_DAY_IN_MS * daysBack,
+    firstPayDayFormatted,
+  );
+
+  if (Date.now() <= prevPayDay) {
+    return getPrevPayDay(firstPayDay, daysBack + 15);
+  }
+
+  return prevPayDay;
+};
+
 export const getPayDay = (from, firstPayday) => {
   const fromDate = new Date(from);
   const payDay = new Date(firstPayday);
@@ -87,5 +103,16 @@ export const getDifferenceDisplayText = secondsRemaining => {
       title: 'seconds',
       time: difference.seconds,
     };
+  }
+};
+
+export const getDurationByTitle = title => {
+  switch (title) {
+    case 'hours':
+      return ONE_DAY_IN_MS / 1000;
+    case 'minutes':
+      return ONE_HOUR_IN_MS / 1000;
+    case 'seconds':
+      return ONE_MINUTE_IN_MS / 1000;
   }
 };

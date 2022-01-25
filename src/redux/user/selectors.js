@@ -3,7 +3,7 @@ import {createSelector} from 'reselect';
 
 import {SALARIES} from '../../consts/salaries';
 import {ONE_DAY_IN_MS} from '../../consts/time';
-import {getPayDay} from '../../utils/calculations';
+import {getPayDay, getPrevPayDay} from '../../utils/calculations';
 
 const selectUserState = state => state.user;
 
@@ -32,23 +32,7 @@ export const selectNextPaycheck = createSelector(
 
 export const selectPrevPaycheck = createSelector(
   [selectFirstPayDay],
-  firstPayDay => {
-    const firstPayDayFormatted = new Date(firstPayDay);
-    firstPayDayFormatted.setHours(12, 0, 0, 0);
-
-    const prevPayDay = getPayDay(
-      Date.now() - ONE_DAY_IN_MS * 45,
-      firstPayDayFormatted,
-    );
-
-    if (prevPayDay.getTime() === firstPayDayFormatted.getTime()) {
-      return new Date(
-        new Date(firstPayDayFormatted).getTime() - ONE_DAY_IN_MS * 31,
-      );
-    }
-
-    return prevPayDay;
-  },
+  firstPayDay => getPrevPayDay(firstPayDay),
 );
 
 export const selectPayDayDifference = createSelector(
