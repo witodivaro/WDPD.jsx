@@ -105,14 +105,3 @@ export const getDifferenceDisplayText = secondsRemaining => {
     };
   }
 };
-
-export const getDurationByTitle = title => {
-  switch (title) {
-    case 'hours':
-      return ONE_DAY_IN_MS / 1000;
-    case 'minutes':
-      return ONE_HOUR_IN_MS / 1000;
-    case 'seconds':
-      return ONE_MINUTE_IN_MS / 1000;
-  }
-};
