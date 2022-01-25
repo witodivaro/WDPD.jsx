@@ -1,8 +1,5 @@
-import {diff} from 'react-native-reanimated';
 import {createSelector} from 'reselect';
 
-import {SALARIES} from '../../consts/salaries';
-import {ONE_DAY_IN_MS} from '../../consts/time';
 import {getPayDay, getPrevPayDay} from '../../utils/calculations';
 
 const selectUserState = state => state.user;
@@ -15,11 +12,6 @@ export const selectIsFirstLaunch = createSelector(
 export const selectFirstPayDay = createSelector(
   selectUserState,
   state => state.payday,
-);
-
-export const selectAdvanceDay = createSelector(
-  selectUserState,
-  state => state.advanceDay,
 );
 
 export const selectNextPaycheck = createSelector(
@@ -42,9 +34,4 @@ export const selectPayDayDifference = createSelector(
     const difference = new Date(next).getTime() - new Date(prev).getTime();
     return Math.floor(difference / 1000);
   },
-);
-
-export const selectShowSalaryDifference = createSelector(
-  selectFirstPayDay,
-  salary => Object.values(SALARIES).includes(salary),
 );

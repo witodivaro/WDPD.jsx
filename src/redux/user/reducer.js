@@ -1,8 +1,7 @@
-import {SET_ADVANCE, SET_IS_FIRST_LAUNCH, SET_PAYDAY} from './actions';
+import {SET_IS_FIRST_LAUNCH, SET_PAYDAY} from './actions';
 
 const initialState = {
   isFirstLaunch: true,
-  advanceDay: null,
   payday: null,
 };
 
@@ -20,13 +19,6 @@ export const userReducer = (state = initialState, {type, payload}) => {
       return {
         ...state,
         payday: payDay,
-      };
-    }
-
-    case SET_ADVANCE: {
-      return {
-        ...state,
-        advanceDay: payload.advanceDay,
       };
     }
 
